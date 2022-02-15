@@ -82,6 +82,8 @@ public class UserDAOModele {
             EtatCivilDAOModele etatCivilDAOModele = new EtatCivilDAOModele();
             StatutMaritalDAOModele statutMaritalDAOModele = new StatutMaritalDAOModele();
             VilleDAOModele villeDAOModele = new VilleDAOModele();
+            
+            
 			
 			
 			while ( rs.next() )

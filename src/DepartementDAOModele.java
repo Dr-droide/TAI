@@ -8,10 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 //DAO pour CRUD (create, read, update, delete)
-public class PaysDAOModele {
+public class DepartementDAOModele {
         
 	
-	public int creer(PaysBeanModele pays)
+	public int creer(DepartementBeanModele departement)
 	{
 		ConnexionBDDModele connexionBDDModele = new ConnexionBDDModele();
 		Connection connexion = connexionBDDModele.getConnexion();
@@ -20,19 +20,19 @@ public class PaysDAOModele {
 		try
 		{
 
-			String requete = new String("INSERT INTO pays (nom, acronyme) VALUES (?,?);");
+			String requete = new String("INSERT INTO departement (nom) VALUES (?);");
 			PreparedStatement statement = connexion.prepareStatement(requete,
 					Statement.RETURN_GENERATED_KEYS);
 
-			statement.setString(2, pays.getNom());
-            statement.setString(3, pays.getAcronyme());
+			statement.setString(2, departement.getNom());
+            
 
 
 			statement.executeUpdate();
 			ResultSet rs = statement.getGeneratedKeys();
 			if (rs.next()) {
 				resultat = rs.getInt(1);
-				pays.setId(resultat);
+				departement.setId(resultat);
 			}
 			else 
 				resultat = -1;
@@ -56,27 +56,26 @@ public class PaysDAOModele {
 	}
 	
 	
-	public List<PaysBeanModele> lireListe()
+	public List<DepartementBeanModele> lireListe()
 	{
 		ConnexionBDDModele connexionBDDModele = new ConnexionBDDModele();
 		Connection connexion = connexionBDDModele.getConnexion();
 
-		List<PaysBeanModele> paysListe = new ArrayList<PaysBeanModele>();		
+		List<DepartementBeanModele> departementListe = new ArrayList<DepartementBeanModele>();		
 
 		try
 		{
-			String requete = new String("SELECT id, nom, acronyme FROM pays;");
+			String requete = new String("SELECT id, nom FROM departement;");
 			Statement statement = connexion.createStatement();
 			ResultSet rs = statement.executeQuery(requete);
 			
 			
 			while ( rs.next() )
 			{
-				PaysBeanModele pays = new PaysBeanModele();
-				pays.setId(rs.getInt("id"));
-                pays.setNom(rs.getString("nom"));
-                pays.setAcronyme(rs.getString("acronyme"));
-				paysListe.add(pays);
+				DepartementBeanModele departement = new DepartementBeanModele();
+				departement.setId(rs.getInt("id"));
+                departement.setNom(rs.getString("nom"));
+                departementListe.add(departement);
 			}
 		}
 		catch (SQLException ex3)
@@ -93,19 +92,19 @@ public class PaysDAOModele {
 		{
 			connexionBDDModele.fermerConnexion();
 		}
-		return paysListe;
+		return departementListe;
 	}
 	
-	public PaysBeanModele lire (int id)
+	public DepartementBeanModele lire (int id)
 	{
 		ConnexionBDDModele connexionBDDModele = new ConnexionBDDModele();
 		Connection connexion = connexionBDDModele.getConnexion();
 
-		PaysBeanModele pays = new PaysBeanModele();		
+		DepartementBeanModele departement = new DepartementBeanModele();		
 
 		try
 		{
-			String requete = new String("SELECT id, nom, acronyme FROM pays WHERE id = ?;");
+			String requete = new String("SELECT id, nom FROM departement WHERE id = ?;");
 			PreparedStatement statement = connexion.prepareStatement(requete);
 			statement.setInt(1, id);
 			ResultSet rs = statement.executeQuery();
@@ -113,9 +112,9 @@ public class PaysDAOModele {
 			
 			while ( rs.next() )
 			{
-				pays.setId(rs.getInt("id"));
-                pays.setNom(rs.getString("nom"));
-                pays.setAcronyme(rs.getString("acronyme"));
+				departement.setId(rs.getInt("id"));
+                departement.setNom(rs.getString("nom"));
+                
 			}
 		}
 		catch (SQLException ex3)
@@ -132,6 +131,7 @@ public class PaysDAOModele {
 		{
 			connexionBDDModele.fermerConnexion();
 		}
-		return pays;
+		return departement;
 	}
 }
+

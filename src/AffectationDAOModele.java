@@ -8,10 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 //DAO pour CRUD (create, read, update, delete)
-public class PaysDAOModele {
+public class AffectationDAOModele {
         
 	
-	public int creer(PaysBeanModele pays)
+	public int creer(AffectationBeanModele affectation)
 	{
 		ConnexionBDDModele connexionBDDModele = new ConnexionBDDModele();
 		Connection connexion = connexionBDDModele.getConnexion();
@@ -20,19 +20,28 @@ public class PaysDAOModele {
 		try
 		{
 
-			String requete = new String("INSERT INTO pays (nom, acronyme) VALUES (?,?);");
+			String requete = new String("INSERT INTO affectation (id_user, nom, description, date_debut, date_fin, emargement) VALUES (?,?,?,?,?,?);");
 			PreparedStatement statement = connexion.prepareStatement(requete,
 					Statement.RETURN_GENERATED_KEYS);
 
-			statement.setString(2, pays.getNom());
-            statement.setString(3, pays.getAcronyme());
+
+			statement.setInt(1, affectation.getUser().getId());
+			statement.setString(2, affectation.getNom());
+			statement.setString(3, affectation.getDescription());		
+			statement.setString(4, affectation.getDate_debut());
+			statement.setString(5, affectation.getDate_fin());
+			statement.setBoolean(6, affectation.getEmargement());
+			
+			
+
+            
 
 
 			statement.executeUpdate();
 			ResultSet rs = statement.getGeneratedKeys();
 			if (rs.next()) {
 				resultat = rs.getInt(1);
-				pays.setId(resultat);
+				affectation.setId(resultat);
 			}
 			else 
 				resultat = -1;
@@ -56,27 +65,33 @@ public class PaysDAOModele {
 	}
 	
 	
-	public List<PaysBeanModele> lireListe()
+	public List<AffectationBeanModele> lireListe()
 	{
 		ConnexionBDDModele connexionBDDModele = new ConnexionBDDModele();
 		Connection connexion = connexionBDDModele.getConnexion();
 
-		List<PaysBeanModele> paysListe = new ArrayList<PaysBeanModele>();		
+		List<AffectationBeanModele> affectationListe = new ArrayList<AffectationBeanModele>();		
 
 		try
 		{
-			String requete = new String("SELECT id, nom, acronyme FROM pays;");
+			String requete = new String("SELECT id, id_user, nom, description, date_debut, date_fin, emargement nom FROM affectation;");
 			Statement statement = connexion.createStatement();
 			ResultSet rs = statement.executeQuery(requete);
+			UserDAOModele userDAOModele = new UserDAOModele();
 			
 			
 			while ( rs.next() )
 			{
-				PaysBeanModele pays = new PaysBeanModele();
-				pays.setId(rs.getInt("id"));
-                pays.setNom(rs.getString("nom"));
-                pays.setAcronyme(rs.getString("acronyme"));
-				paysListe.add(pays);
+				AffectationBeanModele affectation = new AffectationBeanModele();
+				affectation.setId(rs.getInt("id")); 
+                affectation.setUser(userDAOModele.lire(rs.getInt("id_user")));
+                affectation.setNom(rs.getString("nom"));
+                affectation.setDescription(rs.getString("description"));
+                affectation.setDate_debut(rs.getString("date_debut"));
+                affectation.setDate_fin(rs.getString("date_fin"));
+                         
+                
+                affectationListe.add(affectation);
 			}
 		}
 		catch (SQLException ex3)
@@ -93,29 +108,34 @@ public class PaysDAOModele {
 		{
 			connexionBDDModele.fermerConnexion();
 		}
-		return paysListe;
+		return affectationListe;
 	}
 	
-	public PaysBeanModele lire (int id)
+	public AffectationBeanModele lire (int id)
 	{
 		ConnexionBDDModele connexionBDDModele = new ConnexionBDDModele();
 		Connection connexion = connexionBDDModele.getConnexion();
 
-		PaysBeanModele pays = new PaysBeanModele();		
+		AffectationBeanModele affectation = new AffectationBeanModele();		
 
 		try
 		{
-			String requete = new String("SELECT id, nom, acronyme FROM pays WHERE id = ?;");
+			String requete = new String("SELECT id, id_user, nom, description, date_debut, date_fin, emargement nom FROM affectation;");
 			PreparedStatement statement = connexion.prepareStatement(requete);
 			statement.setInt(1, id);
 			ResultSet rs = statement.executeQuery();
+			UserDAOModele userDAOModele = new UserDAOModele();
 			
 			
 			while ( rs.next() )
 			{
-				pays.setId(rs.getInt("id"));
-                pays.setNom(rs.getString("nom"));
-                pays.setAcronyme(rs.getString("acronyme"));
+				affectation.setId(rs.getInt("id")); 
+                affectation.setUser(userDAOModele.lire(rs.getInt("id_user")));
+                affectation.setNom(rs.getString("nom"));
+                affectation.setDescription(rs.getString("description"));
+                affectation.setDate_debut(rs.getString("date_debut"));
+                affectation.setDate_fin(rs.getString("date_fin"));
+                
 			}
 		}
 		catch (SQLException ex3)
@@ -132,6 +152,7 @@ public class PaysDAOModele {
 		{
 			connexionBDDModele.fermerConnexion();
 		}
-		return pays;
+		return affectation;
 	}
 }
+

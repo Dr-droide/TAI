@@ -8,7 +8,7 @@ public class ContratBeanModele {
 	private CategorieBeanModele categorie;
 	private EchelonBeanModele echelon;
 	private DepartementBeanModele departement;	
-	private java.sql.Date date_embauche;
+	private String date_embauche;
 	
 	public int getId() {
 		return id;
@@ -58,11 +58,12 @@ public class ContratBeanModele {
 	public void setDepartement(DepartementBeanModele departement) {
 		this.departement = departement;
 	}
-	public java.sql.Date getDate_embauche() {
+	public String getDate_embauche() {
 		return date_embauche;
 	}
-	public void setDate_embauche(java.sql.Date date_embauche) {
+	public void setDate_embauche(String date_embauche) {
 		this.date_embauche = date_embauche;
 	}
+	
 
 }

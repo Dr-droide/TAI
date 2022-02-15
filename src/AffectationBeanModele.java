@@ -4,8 +4,8 @@ public class AffectationBeanModele {
 	private int id;
 	private String nom;
 	private String description;
-	private java.sql.Date debutDate;
-	private java.sql.Date finDate;
+	private String date_debut;
+	private String date_fin;
 	private boolean emargement;
 	private UserBeanModele user;
 	public int getId() {
@@ -26,18 +26,7 @@ public class AffectationBeanModele {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public java.sql.Date getDebutDate() {
-		return debutDate;
-	}
-	public void setDebutDate(java.sql.Date debutDate) {
-		this.debutDate = debutDate;
-	}
-	public java.sql.Date getFinDate() {
-		return finDate;
-	}
-	public void setFinDate(java.sql.Date finDate) {
-		this.finDate = finDate;
-	}
+
 	public boolean isEmargement() {
 		return emargement;
 	}
@@ -50,7 +39,19 @@ public class AffectationBeanModele {
 	public void setUser(UserBeanModele user) {
 		this.user = user;
 	}
-		
+	public String getDate_debut() {
+		return date_debut;
+	}
+	public void setDate_debut(String date_debut) {
+		this.date_debut = date_debut;
+	}
+	public String getDate_fin() {
+		return date_fin;
+	}
+	public void setDate_fin(String date_fin) {
+		this.date_fin = date_fin;
+	}
+	
 
 
 	
