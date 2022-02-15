@@ -22,5 +22,5 @@ public class PaysBeanModele {
 	public void setAcronyme(String acronyme) {
 		this.acronyme = acronyme;
 	}
-		
+		//dozaidhgadgzkgzfdfyhcgzhdgjehd,sfgbgjfbfgdfjsdkgfefkevfzhzdefevf
 }

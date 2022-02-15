@@ -15,5 +15,5 @@ public class CategorieBeanModele {
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
-		
+		//zzfefezfzef
 }
