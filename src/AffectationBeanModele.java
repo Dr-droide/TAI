@@ -7,8 +7,7 @@ public class AffectationBeanModele {
 	private java.sql.Date debutDate;
 	private java.sql.Date finDate;
 	private boolean emargement;
-	private UserBeanModele IdUser;
-		
+	private UserBeanModele user;
 	public int getId() {
 		return id;
 	}
@@ -45,11 +44,16 @@ public class AffectationBeanModele {
 	public void setEmargement(boolean emargement) {
 		this.emargement = emargement;
 	}
-	public UserBeanModele getIdUser() {
-		return IdUser;
+	public UserBeanModele getUser() {
+		return user;
 	}
-	public void setIdUser(UserBeanModele idUser) {
-		IdUser = idUser;
+	public void setUser(UserBeanModele user) {
+		this.user = user;
 	}
+		
+
+
+	
+	
 		
 }
