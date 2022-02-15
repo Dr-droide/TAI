@@ -20,7 +20,7 @@ public class MoisDAOModele {
 			PreparedStatement statement = connexion.prepareStatement(requete,
 					Statement.RETURN_GENERATED_KEYS);
 
-			statement.setString(mois.getNom());
+			statement.setString(2, mois.getNom());
             
 
 
