@@ -79,7 +79,7 @@ public class ContratDAOModele {
 			UserDAOModele userDAOModele = new UserDAOModele();
 			FonctionDAOModele fonctionDAOModele = new FonctionDAOModele();
 			CategorieDAOModele categorieDAOModele = new CategorieDAOModele();
-			EchelonDAOModele echelonrDAOModele = new EchelonDAOModele();
+			EchelonDAOModele echelonDAOModele = new EchelonDAOModele();
 			DepartementDAOModele departementDAOModele = new DepartementDAOModele();
           
             
