@@ -1,8 +1,8 @@
 
 public class ContratBeanModele {
 	private int id;
-	private UserBeanModele IdUser;
-	private double nb_ouvre;
+	private UserBeanModele user;
+	private double nb_heure;
 	private double salaire_horaire;
 	private FonctionBeanModele fonction;
 	private CategorieBeanModele categorie;
@@ -16,18 +16,8 @@ public class ContratBeanModele {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public UserBeanModele getIdUser() {
-		return IdUser;
-	}
-	public void setIdUser(UserBeanModele idUser) {
-		IdUser = idUser;
-	}
-	public double getNb_ouvre() {
-		return nb_ouvre;
-	}
-	public void setNb_ouvre(double nb_ouvre) {
-		this.nb_ouvre = nb_ouvre;
-	}
+
+	
 	public double getSalaire_horaire() {
 		return salaire_horaire;
 	}
@@ -63,6 +53,18 @@ public class ContratBeanModele {
 	}
 	public void setDate_embauche(String date_embauche) {
 		this.date_embauche = date_embauche;
+	}
+	public UserBeanModele getUser() {
+		return user;
+	}
+	public void setUser(UserBeanModele user) {
+		this.user = user;
+	}
+	public double getNb_heure() {
+		return nb_heure;
+	}
+	public void setNb_heure(double nb_heure) {
+		this.nb_heure = nb_heure;
 	}
 	
 

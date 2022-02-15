@@ -8,10 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 //DAO pour CRUD (create, read, update, delete)
-public class AffectationDAOModele {
-        
-	
-	public int creer(AffectationBeanModele affectation)
+public class FichePaieDAOModele {
+ 
+	// CRUD: create(obj)
+	public int creer(FichePaieBeanModele fichePaie)
 	{
 		ConnexionBDDModele connexionBDDModele = new ConnexionBDDModele();
 		Connection connexion = connexionBDDModele.getConnexion();
@@ -20,28 +20,23 @@ public class AffectationDAOModele {
 		try
 		{
 
-			String requete = new String("INSERT INTO affectation (id_user, nom, description, date_debut, date_fin, emargement) VALUES (?,?,?,?,?,?);");
+			String requete = new String("INSERT INTO fichePaie (id_user, id_mois, annee, id_contrat, heure_ouvre) VALUES (?,?,?,?,?);");
 			PreparedStatement statement = connexion.prepareStatement(requete,
 					Statement.RETURN_GENERATED_KEYS);
 
-
-			statement.setInt(1, affectation.getUser().getId());
-			statement.setString(2, affectation.getNom());
-			statement.setString(3, affectation.getDescription());		
-			statement.setString(4, affectation.getDate_debut());
-			statement.setString(5, affectation.getDate_fin());
-			statement.setBoolean(6, affectation.getEmargement());  //pb avec le booléen
+			statement.setInt(1, fichePaie.getUser().getId());
+			statement.setInt(2, fichePaie.getMois().getId());
+			statement.setInt(3, fichePaie.getAnnee()); 
+			statement.setInt(4, fichePaie.getContrat().getId());			
+			statement.setDouble(5, fichePaie.getHeure_ouvre());
 			
-			
-
-            
 
 
 			statement.executeUpdate();
 			ResultSet rs = statement.getGeneratedKeys();
 			if (rs.next()) {
 				resultat = rs.getInt(1);
-				affectation.setId(resultat);
+				fichePaie.setId(resultat);
 			}
 			else 
 				resultat = -1;
@@ -63,35 +58,39 @@ public class AffectationDAOModele {
 		}
 		return resultat;
 	}
-	
-	
-	public List<AffectationBeanModele> lireListe()
+
+	// read all
+	public List<FichePaieBeanModele> lireListe()
 	{
 		ConnexionBDDModele connexionBDDModele = new ConnexionBDDModele();
 		Connection connexion = connexionBDDModele.getConnexion();
 
-		List<AffectationBeanModele> affectationListe = new ArrayList<AffectationBeanModele>();		
+		List<FichePaieBeanModele> fichePaieListe = new ArrayList<FichePaieBeanModele>();		
 
 		try
 		{
-			String requete = new String("SELECT id, id_user, nom, description, date_debut, date_fin, emargement nom FROM affectation;");
+			String requete = new String("SELECT id, id_user, id_mois, annee, id_contrat, heure_ouvre FROM fichePaie;");
 			Statement statement = connexion.createStatement();
 			ResultSet rs = statement.executeQuery(requete);
 			UserDAOModele userDAOModele = new UserDAOModele();
+			MoisDAOModele moisDAOModele = new MoisDAOModele();
+			ContratDAOModele contratDAOModele = new ContratDAOModele();
+            
+            
 			
 			
 			while ( rs.next() )
 			{
-				AffectationBeanModele affectation = new AffectationBeanModele();
-				affectation.setId(rs.getInt("id")); 
-                affectation.setUser(userDAOModele.lire(rs.getInt("id_user")));
-                affectation.setNom(rs.getString("nom"));
-                affectation.setDescription(rs.getString("description"));
-                affectation.setDate_debut(rs.getString("date_debut"));
-                affectation.setDate_fin(rs.getString("date_fin"));
-                         
+				FichePaieBeanModele fichePaie = new FichePaieBeanModele();
+				fichePaie.setId(rs.getInt("id"));				
+                fichePaie.setUser(userDAOModele.lire(rs.getInt("id_user")));
+                fichePaie.setMois(moisDAOModele.lire(rs.getInt("id_mois")));
+                fichePaie.setAnnee(rs.getInt("annee"));
+                fichePaie.setContrat(contratDAOModele.lire(rs.getInt("id_contrat")));
+                fichePaie.setHeure_ouvre(rs.getDouble("heure_ouvre"));
+   
                 
-                affectationListe.add(affectation);
+				fichePaieListe.add(fichePaie);
 			}
 		}
 		catch (SQLException ex3)
@@ -108,36 +107,40 @@ public class AffectationDAOModele {
 		{
 			connexionBDDModele.fermerConnexion();
 		}
-		return affectationListe;
+		return fichePaieListe;
 	}
 	
-	public AffectationBeanModele lire (int id)
+	public FichePaieBeanModele lire(int id)
 	{
 		ConnexionBDDModele connexionBDDModele = new ConnexionBDDModele();
 		Connection connexion = connexionBDDModele.getConnexion();
 
-		AffectationBeanModele affectation = new AffectationBeanModele();		
+		FichePaieBeanModele fichePaie = new FichePaieBeanModele();		
 
 		try
 		{
-			String requete = new String("SELECT id, id_user, nom, description, date_debut, date_fin, emargement nom FROM affectation;");
+			String requete = new String("SELECT id, id_user, id_mois, annee, id_contrat, heure_ouvre FROM fichePaie WHERE id = ?;");
 			PreparedStatement statement = connexion.prepareStatement(requete);
 			statement.setInt(1, id);
 			ResultSet rs = statement.executeQuery();
 			UserDAOModele userDAOModele = new UserDAOModele();
+			MoisDAOModele moisDAOModele = new MoisDAOModele();
+			ContratDAOModele contratDAOModele = new ContratDAOModele();
 			
 			
 			while ( rs.next() )
 			{
-				affectation.setId(rs.getInt("id")); 
-                affectation.setUser(userDAOModele.lire(rs.getInt("id_user")));
-                affectation.setNom(rs.getString("nom"));
-                affectation.setDescription(rs.getString("description"));
-                affectation.setDate_debut(rs.getString("date_debut"));
-                affectation.setDate_fin(rs.getString("date_fin"));
+				fichePaie.setId(rs.getInt("id"));
+                fichePaie.setUser(userDAOModele.lire(rs.getInt("id_user")));
+                fichePaie.setMois(moisDAOModele.lire(rs.getInt("id_mois")));
+                fichePaie.setAnnee(rs.getInt("annee"));
+                fichePaie.setContrat(contratDAOModele.lire(rs.getInt("id_contrat")));
+                fichePaie.setHeure_ouvre(rs.getDouble("heure_ouvre"));
                 
 			}
 		}
+               
+			
 		catch (SQLException ex3)
 		{
 			while (ex3 != null)
@@ -152,7 +155,7 @@ public class AffectationDAOModele {
 		{
 			connexionBDDModele.fermerConnexion();
 		}
-		return affectation;
+		return fichePaie;
 	}
+	
 }
-

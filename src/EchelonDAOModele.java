@@ -6,7 +6,10 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+//DAO pour CRUD (create, read, update, delete)
 public class EchelonDAOModele {
+        
+	
 	public int creer(EchelonBeanModele echelon)
 	{
 		ConnexionBDDModele connexionBDDModele = new ConnexionBDDModele();
@@ -20,7 +23,7 @@ public class EchelonDAOModele {
 			PreparedStatement statement = connexion.prepareStatement(requete,
 					Statement.RETURN_GENERATED_KEYS);
 
-			statement.setString(echelon.getNom());
+			statement.setString(2, echelon.getNom());
             
 
 
@@ -61,7 +64,7 @@ public class EchelonDAOModele {
 
 		try
 		{
-			String requete = new String("SELECT id, nom, FROM echelon;");
+			String requete = new String("SELECT id, nom FROM echelon;");
 			Statement statement = connexion.createStatement();
 			ResultSet rs = statement.executeQuery(requete);
 			
@@ -71,7 +74,7 @@ public class EchelonDAOModele {
 				EchelonBeanModele echelon = new EchelonBeanModele();
 				echelon.setId(rs.getInt("id"));
                 echelon.setNom(rs.getString("nom"));
-				echelonListe.add(echelon);
+                echelonListe.add(echelon);
 			}
 		}
 		catch (SQLException ex3)
@@ -96,7 +99,7 @@ public class EchelonDAOModele {
 		ConnexionBDDModele connexionBDDModele = new ConnexionBDDModele();
 		Connection connexion = connexionBDDModele.getConnexion();
 
-		EchelonBeanModele echelon new EchelonBeanModele();		
+		EchelonBeanModele echelon = new EchelonBeanModele();		
 
 		try
 		{
@@ -110,6 +113,7 @@ public class EchelonDAOModele {
 			{
 				echelon.setId(rs.getInt("id"));
                 echelon.setNom(rs.getString("nom"));
+                
 			}
 		}
 		catch (SQLException ex3)
@@ -128,5 +132,4 @@ public class EchelonDAOModele {
 		}
 		return echelon;
 	}
-
 }

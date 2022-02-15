@@ -4,9 +4,9 @@ public class FichePaieBeanModele {
 	private int id;
 	private UserBeanModele user;
 	private MoisBeanModele mois;
-	private Year year; 
+	private int annee; 
 	private ContratBeanModele contrat;
-	private double heureOuvre;
+	private double heure_ouvre;
 	
 	public int getId() {
 		return id;
@@ -26,11 +26,11 @@ public class FichePaieBeanModele {
 	public void setMois(MoisBeanModele mois) {
 		this.mois = mois;
 	}
-	public Year getYear() {
-		return year;
+	public int getAnnee() {
+		return annee;
 	}
-	public void setYear(Year year) {
-		this.year = year;
+	public void setAnnee(int annee) {
+		this.annee = annee;
 	}
 	public ContratBeanModele getContrat() {
 		return contrat;
@@ -38,11 +38,11 @@ public class FichePaieBeanModele {
 	public void setContrat(ContratBeanModele contrat) {
 		this.contrat = contrat;
 	}
-	public double getHeureOuvre() {
-		return heureOuvre;
+	public double getHeure_ouvre() {
+		return heure_ouvre;
 	}
-	public void setHeureOuvre(double heureOuvre) {
-		this.heureOuvre = heureOuvre;
+	public void setHeure_ouvre(double heure_ouvre) {
+		this.heure_ouvre = heure_ouvre;
 	}
 
 }
