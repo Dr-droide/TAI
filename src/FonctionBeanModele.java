@@ -1,5 +1,5 @@
 
-public class FonctionBeanModele {
+public class FonctionBeanModele {//dzd
 	private int id;
 	private String nom;
 		
@@ -17,5 +17,5 @@ public class FonctionBeanModele {
 	}
 		
 	
-	//dzdzdz
+	
 }

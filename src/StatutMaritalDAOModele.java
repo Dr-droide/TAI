@@ -9,7 +9,7 @@ import java.util.List;
 
 //DAO pour CRUD (create, read, update, delete)
 public class StatutMaritalDAOModele {
-        
+	//dzd       
 	
 	public int creer(StatutMaritalBeanModele statut_marital)
 	{

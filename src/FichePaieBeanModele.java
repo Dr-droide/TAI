@@ -1,5 +1,5 @@
 import java.time.Year;
-
+//dzd
 public class FichePaieBeanModele {
 	private int id;
 	private UserBeanModele user;

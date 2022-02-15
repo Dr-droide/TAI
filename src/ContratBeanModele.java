@@ -9,7 +9,7 @@ public class ContratBeanModele {
 	private EchelonBeanModele echelon;
 	private DepartementBeanModele departement;	
 	private String date_embauche;
-	
+	//dzd
 	public int getId() {
 		return id;
 	}

@@ -1,5 +1,5 @@
 
-import java.sql.Connection;
+import java.sql.Connection; //zdd
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -30,7 +30,7 @@ public class AffectationDAOModele {
 			statement.setString(3, affectation.getDescription());		
 			statement.setString(4, affectation.getDate_debut());
 			statement.setString(5, affectation.getDate_fin());
-			statement.setBoolean(6, affectation.getEmargement());  //pb avec le booléen
+			statement.setBoolean(6, affectation.isEmargement());  
 			
 			
 

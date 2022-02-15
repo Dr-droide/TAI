@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-
+//dzd
 //DAO pour CRUD (create, read, update, delete)
 public class FichePaieDAOModele {
  

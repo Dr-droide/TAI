@@ -1,5 +1,5 @@
 
-public class CategorieBeanModele {
+public class CategorieBeanModele { //dzd
 	private int id;
 	private String nom;
 		
@@ -15,5 +15,5 @@ public class CategorieBeanModele {
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
-		//zzfefezfzef
+		
 }

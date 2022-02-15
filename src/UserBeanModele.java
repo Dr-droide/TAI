@@ -1,4 +1,4 @@
-
+//dzd
 public class UserBeanModele {
     private int id;
     private RoleBeanModele role;
