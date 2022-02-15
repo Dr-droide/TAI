@@ -65,6 +65,52 @@ public class AffectationDAOModele {
 	}
 	
 	
+	public List<AffectationBeanModele> lireListeUser(int id_user){
+		ConnexionBDDModele connexionBDDModele = new ConnexionBDDModele();
+		Connection connexion = connexionBDDModele.getConnexion();
+
+		List<AffectationBeanModele> affectationListe = new ArrayList<AffectationBeanModele>();		
+
+		try
+		{
+			String requete = new String("SELECT id, id_user, nom, description, date_debut, date_fin, emargement nom FROM affectation WHERE id_user=?;");
+			PreparedStatement statement = connexion.prepareStatement(requete);
+			statement.setInt(1, id_user);
+			ResultSet rs = statement.executeQuery(requete);
+			UserDAOModele userDAOModele = new UserDAOModele();
+			
+			
+			while ( rs.next() )
+			{
+				AffectationBeanModele affectation = new AffectationBeanModele();
+				affectation.setId(rs.getInt("id")); 
+                affectation.setUser(userDAOModele.lire(rs.getInt("id_user")));
+                affectation.setNom(rs.getString("nom"));
+                affectation.setDescription(rs.getString("description"));
+                affectation.setDate_debut(rs.getString("date_debut"));
+                affectation.setDate_fin(rs.getString("date_fin"));
+                         
+                
+                affectationListe.add(affectation);
+			}
+		}
+		catch (SQLException ex3)
+		{
+			while (ex3 != null)
+			{
+				System.out.println(ex3.getSQLState());
+				System.out.println(ex3.getMessage());
+				System.out.println(ex3.getErrorCode());
+				ex3=ex3.getNextException();
+			}
+		}
+		finally 
+		{
+			connexionBDDModele.fermerConnexion();
+		}
+		return affectationListe;
+	}
+	
 	public List<AffectationBeanModele> lireListe()
 	{
 		ConnexionBDDModele connexionBDDModele = new ConnexionBDDModele();

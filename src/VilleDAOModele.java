@@ -57,7 +57,7 @@ public class VilleDAOModele {
 	}
 	
 	
-	public List<VilleBeanModele> lisreListe()
+	public List<VilleBeanModele> lireListe()
 	{
 		ConnexionBDDModele connexionBDDModele = new ConnexionBDDModele();
 		Connection connexion = connexionBDDModele.getConnexion();
