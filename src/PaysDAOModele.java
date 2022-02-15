@@ -8,10 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 //DAO pour CRUD (create, read, update, delete)
-public class StatutMaritalDAOModele {
+public class PaysDAOModele {
         
 	
-	public int creer(StatutMaritalBeanModele statut_marital)
+	public int creer(PaysBeanModele pays)
 	{
 		ConnexionBDDModele connexionBDDModele = new ConnexionBDDModele();
 		Connection connexion = connexionBDDModele.getConnexion();
@@ -20,18 +20,19 @@ public class StatutMaritalDAOModele {
 		try
 		{
 
-			String requete = new String("INSERT INTO statut_marital (nom) VALUES (?);");
+			String requete = new String("INSERT INTO pays (nom, acronyme) VALUES (?,?);");
 			PreparedStatement statement = connexion.prepareStatement(requete,
 					Statement.RETURN_GENERATED_KEYS);
 
-			statement.setString(1, statut_marital.getNom());
+			statement.setString(2, pays.getNom());
+            statement.setString(3, pays.getAcronyme());
 
 
 			statement.executeUpdate();
 			ResultSet rs = statement.getGeneratedKeys();
 			if (rs.next()) {
 				resultat = rs.getInt(1);
-				statut_marital.setId(resultat);
+				pays.setId(resultat);
 			}
 			else 
 				resultat = -1;
@@ -55,26 +56,26 @@ public class StatutMaritalDAOModele {
 	}
 	
 	
-	public List<StatutMaritalBeanModele> lisreListe()
+	public List<PaysBeanModele> lisreListe()
 	{
 		ConnexionBDDModele connexionBDDModele = new ConnexionBDDModele();
 		Connection connexion = connexionBDDModele.getConnexion();
 
-		List<StatutMaritalBeanModele> statut_maritalListe = new ArrayList<StatutMaritalBeanModele>();		
+		List<PaysBeanModele> paysListe = new ArrayList<PaysBeanModele>();		
 
 		try
 		{
-			String requete = new String("SELECT id, nom FROM statut_marital;");
+			String requete = new String("SELECT id, nom, acronyme FROM pays;");
 			Statement statement = connexion.createStatement();
 			ResultSet rs = statement.executeQuery(requete);
 			
 			
 			while ( rs.next() )
 			{
-				StatutMaritalBeanModele statut_marital = new StatutMaritalBeanModele();
-				statut_marital.setId(rs.getInt("id"));
-                statut_marital.setNom(rs.getString("nom"));
-				statut_maritalListe.add(statut_marital);
+				PaysBeanModele pays = new PaysBeanModele();
+				pays.setId(rs.getInt("id"));
+                pays.setNom(rs.getString("nom"));
+				paysListe.add(pays);
 			}
 		}
 		catch (SQLException ex3)
@@ -91,19 +92,19 @@ public class StatutMaritalDAOModele {
 		{
 			connexionBDDModele.fermerConnexion();
 		}
-		return statut_maritalListe;
+		return paysListe;
 	}
 	
-	public StatutMaritalBeanModele lire (int id)
+	public PaysBeanModele lire (int id)
 	{
 		ConnexionBDDModele connexionBDDModele = new ConnexionBDDModele();
 		Connection connexion = connexionBDDModele.getConnexion();
 
-		StatutMaritalBeanModele statut_marital = new StatutMaritalBeanModele();		
+		PaysBeanModele pays = new PaysBeanModele();		
 
 		try
 		{
-			String requete = new String("SELECT id, nom FROM statut_marital WHERE id = ?;");
+			String requete = new String("SELECT id, nom, acronyme FROM pays WHERE id = ?;");
 			PreparedStatement statement = connexion.prepareStatement(requete);
 			statement.setInt(1, id);
 			ResultSet rs = statement.executeQuery();
@@ -111,8 +112,8 @@ public class StatutMaritalDAOModele {
 			
 			while ( rs.next() )
 			{
-				statut_marital.setId(rs.getInt("id"));
-                statut_marital.setNom(rs.getString("nom"));
+				pays.setId(rs.getInt("id"));
+                pays.setNom(rs.getString("nom"));
 			}
 		}
 		catch (SQLException ex3)
@@ -129,6 +130,6 @@ public class StatutMaritalDAOModele {
 		{
 			connexionBDDModele.fermerConnexion();
 		}
-		return statut_marital;
+		return pays;
 	}
 }

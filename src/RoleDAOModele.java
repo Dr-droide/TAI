@@ -20,12 +20,11 @@ public class RoleDAOModele {
 		try
 		{
 
-			String requete = new String("INSERT INTO role (id, nom) VALUES (?,?);");
+			String requete = new String("INSERT INTO role (nom) VALUES (?);");
 			PreparedStatement statement = connexion.prepareStatement(requete,
 					Statement.RETURN_GENERATED_KEYS);
 
-			statement.setInt(1, role.getId());
-			statement.setString(2, role.getNom());
+			statement.setString(1, role.getNom());
 
 
 			statement.executeUpdate();
